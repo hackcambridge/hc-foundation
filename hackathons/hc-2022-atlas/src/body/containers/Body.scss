@@ -1,0 +1,17 @@
+.Body {
+    background-color: none;
+    color: black;
+    min-height: 400vh;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.Body > * {
+    flex: 1;
+}
+
+.Body > .Landing {
+    flex: 2;
+}

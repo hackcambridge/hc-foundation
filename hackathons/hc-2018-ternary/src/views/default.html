@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set headerColor = "black" %}
+{% set layoutMode = "a4" %}
+{% include 'header.html' %}
+<main>
+    {#
+      if the user variable is available (only the case if the page is authenticated) let them know they're logged in via a header
+    #}
+    {% if user.firstName %}
+        <section class="red">
+            <div class="container {{ layoutMode }}">
+                <div class="one half unit row">
+                    <div class="unit column grows">
+                        <div>
+                            Hey {{ user.firstName }} {{ user.lastName }}!
+                        </div>
+                    </div>
+                </div>
+                <div class="one half unit row">
+                    <div class="unit column grows">
+                        <a href="/apply/logout">Logout</a>
+                        {# dashboard view explicitly sets is_dashboard to true, otherwise is falsey #}
+                        {% if not is_dashboard %}
+                            <a href="/apply/dashboard">Dashboard</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    {% block introBanner %}
+    {% endblock %}
+    {% if homeLink %}
+    <section class="home-link">
+        <div class="container {{ layoutMode }}">
+            <div class="one half unit row">
+                <div class="unit column grows">
+                    <a rel="prev" href="/">Back to the homepage</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {% if not no_page_content %}
+    <section>
+        <div class="container {{ layoutMode }}">
+            <div class="three unit row">
+                <div class="unit column grows">
+                    <h1>
+                        {% block pageHeading %}{% endblock %}
+                    </h1>
+                </div>
+            </div>
+            {% block pageContent %}
+            {% endblock %}
+        </div>
+    </section>
+    {% endif %}
+    {% block extraSections %}
+    {% endblock %}
+</main>
+{% if footer %}
+<footer>
+    <div class="container {{ layoutMode }}">
+        <div class="three unit row">
+            <div class="column">
+                {% include 'footer.html' %}
+            </div>
+        </div>
+    </div>
+</footer>
+{% endif %}
+{% endblock %}

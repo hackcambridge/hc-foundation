@@ -1,0 +1,8 @@
+.env
+node_modules
+assets/dist
+*~
+
+*.crt
+*.csr
+*.key

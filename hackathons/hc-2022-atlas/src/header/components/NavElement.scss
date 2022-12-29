@@ -1,0 +1,21 @@
+@import '../../shared/style/colour-theme.scss';
+
+.NavElement {
+    display: block;
+    width: fit-content;
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+}
+
+.NavElement:hover {
+    text-decoration: underline;    
+}
+
+@media only screen and (max-width: 960px) {
+    .NavElement {
+        display: none;
+    }
+}

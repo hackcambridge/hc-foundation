@@ -1,0 +1,11 @@
+.SponsorButton {
+    background-color: transparent;
+    color: white;
+    font-family: inherit;
+    border-style: none;
+}
+
+.SponsorButton:hover {
+    color: turquoise;
+    text-decoration: underline;
+}

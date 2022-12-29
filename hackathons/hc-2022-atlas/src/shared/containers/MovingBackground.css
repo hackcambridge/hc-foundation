@@ -1,0 +1,23 @@
+.MovingBackground {
+    position: relative;
+    background: rgb(0, 0, 0);
+    /* Can change gradient here*/
+    background: linear-gradient(185deg, rgba(0,0,0,1) 0%, rgba(44,144,196,1) 25%, rgba(239,142,56,1) 75%, rgba(49,204,144,1) 100%);
+}
+
+.MovingBackground::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-position: var(--before-bg-pos);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 400vw 400vh;
+    background-image: var(--before-bg-img);
+    opacity: 7%;
+    min-height: inherit;
+}

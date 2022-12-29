@@ -4,8 +4,5 @@
     "private": "true",
     "workspaces": [
         "hackathons/*"
-    ],
-    "devDependencies": {
-        "lerna": "^6.1.0"
-    }
+    ]
 }

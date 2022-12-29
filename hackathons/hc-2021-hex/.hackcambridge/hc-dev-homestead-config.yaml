@@ -1,0 +1,23 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 2
+provider: virtualbox
+version: {{ HC.HOMESTEAD_VERSION }}
+ssl: true
+
+authorize: {{ HC.RSA_KEY }}.pub
+
+keys:
+    - {{ HC.RSA_KEY }}
+
+folders:
+    - map: {{ HC.SOURCE_DIRECTORY }}
+      to: /home/vagrant/hackcambridge
+
+sites:
+    - map: local.hackcambridge.com
+      to: /home/vagrant/hackcambridge/public
+
+databases:
+    - homestead

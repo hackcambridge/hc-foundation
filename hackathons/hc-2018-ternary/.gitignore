@@ -1,0 +1,15 @@
+.env
+node_modules
+dist
+assets/dist
+*~
+
+*.crt
+*.csr
+*.key
+
+npm-debug.log
+yarn-error.log
+
+# macOS
+.DS_Store

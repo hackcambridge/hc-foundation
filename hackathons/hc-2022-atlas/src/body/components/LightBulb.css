@@ -1,0 +1,55 @@
+.LightBulb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80%;
+    width: 80%;
+    padding: min(30px, 10%);
+    background-color: transparent;
+}
+
+.moving-map {
+    position: relative;
+    flex: 10;
+    width: 80%;
+    background-size: 200% 200%;
+    background-position: 50% 50%;
+    clip-path: polygon(75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%, 25% 0);
+    opacity: 40%;
+}
+
+/* .moving-map::before {
+    content: "";
+    display: block;
+    padding-top: 75%;
+}
+
+.moving-map-content {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+} */
+
+.strip {
+    flex: 1;
+    max-height: min(10%, 30px);
+    min-height: 20px;
+    min-width: 100%;
+    margin: 10px;
+    opacity: 40%;
+}
+
+.strip-1 {
+    background-image: linear-gradient(90deg, transparent 0%, transparent 27%, white 27%, white 73%, transparent 73%, transparent 100%);
+}
+
+.strip-2 {
+    background-image: linear-gradient(90deg, transparent 0%, transparent 30%, white 30%, white 70%, transparent 70%, transparent 100%);
+}
+
+.strip-3 {
+    background-image: linear-gradient(90deg, transparent 0%, transparent 35%, white 35%, white 65%, transparent 65%, transparent 100%);
+}

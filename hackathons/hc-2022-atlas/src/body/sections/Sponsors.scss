@@ -1,0 +1,55 @@
+@import "../../shared/style/colour-theme.scss";
+@import "../../shared/style/font.scss";
+@import "../../shared/style/util.scss";
+
+.Sponsors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    text-align: left;
+    min-width: 80%;
+    max-width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    @include industry-bold();
+    font-size: calc(min(0.7in, 8vw));
+    color: $green;
+  }
+  h2 {
+    @include industry-simple();
+    color: $blue;
+  }
+
+  .hex-one-only {
+    // Customize grid for our use case
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    justify-content: center;
+    section {
+      width: 100%;
+      margin: 0%;
+      a {
+        margin: 0%;
+      }
+    }
+  }
+  .HexGrid {
+    section a img {
+      width: 80%;
+      height: auto;
+      object-position: 50% 50%;
+      clip-path: none;
+    }
+    section {
+      margin-bottom: 5%;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .hex-five {
+      margin-right: calc(var(--size));
+    }
+  }
+}
