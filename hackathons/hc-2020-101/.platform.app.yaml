@@ -1,0 +1,36 @@
+variables:
+    env:
+        # Update these for your desired NVM and Node versions.
+        NVM_VERSION: v1.1.0
+        NODE_VERSION: v16.18.1
+
+hooks:
+    build: |
+        set -e
+        unset NPM_CONFIG_PREFIX
+        export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+
+        # Link cache with app
+        if [ ! -d "$PLATFORM_CACHE_DIR/.nvm" ]; then
+            mkdir -p $PLATFORM_CACHE_DIR/.nvm
+        fi
+        ln -s $PLATFORM_CACHE_DIR/.nvm $NVM_DIR
+
+        # Check for Node.js version and install if not present
+        if [ ! -d "$PLATFORM_CACHE_DIR/.nvm/versions/node/$NODE_VERSION" ]; then
+
+            # Get nvm install script if correct version not present
+            export NVM_INSTALL_FILE="${PLATFORM_CACHE_DIR}/nvm_${NVM_VERSION}_install.sh"
+            if [ ! -f "$NVM_INSTALL_FILE" ]; then
+                wget -nc -O "$NVM_INSTALL_FILE" "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh"
+            fi
+
+            # Install, automatically using NODE_VERSION
+            bash $NVM_INSTALL_FILE
+        fi
+
+        # Activate nvm
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+        # Use the specified version
+        nvm use "$NODE_VERSION"    

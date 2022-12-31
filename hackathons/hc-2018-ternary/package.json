@@ -4,13 +4,13 @@
   "main": "dist/index.js",
   "version": "1.0.0",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "start": "export NODE_PATH=$NODE_PATH:./dist; node dist/index",
-    "build": "gulp build",
-    "watch": "gulp serve",
+    "test": "gulp build",
+    "start": "set NODE_PATH=$NODE_PATH:./dist; node dist/index",
+    "build": "set NODE_PATH=$NODE_PATH; gulp build",
+    "watch": "set NODE_PATH=$NODE_PATH; gulp serve",
     "migrate": "sequelize db:migrate",
     "sequelize": "sequelize",
-    "hc-script": "export NODE_PATH=$NODE_PATH:./dist; node ./dist/js/hc-scripts/index"
+    "hc-script": "set NODE_PATH=$NODE_PATH:./dist; node ./dist/js/hc-scripts/index"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
     "body-parser": "^1.15.2",
-    "browser-sync": "^2.11.1",
+    "browser-sync": "2.11.2",
     "browserify": "^14.5.0",
     "chalk": "^2.4.1",
     "client-sessions": "^0.8.0",
@@ -71,13 +71,14 @@
     "geodist": "^0.2.1",
     "google-spreadsheet": "^2.0.4",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-cli": "^1.1.1",
     "gulp-if": "^2.0.0",
     "gulp-load-plugins": "^1.0.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rev-all": "^0.9.7",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-stylus": "^2.1.0",
-    "gulp-typescript": "^5.0.0-alpha.3",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.7",
     "jquery": "^3.2.1",
@@ -118,6 +119,7 @@
     "yargs": "^9.0.1"
   },
   "devDependencies": {
+    "@types/gulp-imagemin": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.0",
     "mocha": "^4.0.1",
