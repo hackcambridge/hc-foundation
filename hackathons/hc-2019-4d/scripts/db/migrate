@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo 'Migrating database…'
-sequelize db:migrate

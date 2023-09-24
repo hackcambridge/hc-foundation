@@ -1,6 +1,0 @@
-@mixin glassmorphism {
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    background-color: rgba(255, 241, 225, 1);
-    border: 1px solid rgba(72, 72, 77, 0.3);
-};

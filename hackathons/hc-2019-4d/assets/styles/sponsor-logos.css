@@ -1,3 +1,0 @@
-.sponsor-logos-group > *:not(:first-child) {
-  margin-top: calc(var(--unit));
-}
