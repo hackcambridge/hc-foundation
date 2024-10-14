@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face{
+    font-family: "Px Grotesk Regular";
+    src: url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.eot");
+    src: url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.eot?#iefix")format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.woff")format("woff"),
+        url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.woff2")format("woff2"),
+        url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.ttf")format("truetype"),
+        url("https://db.onlinewebfonts.com/t/9527a4c4f55e8075eb6a60fe577d89c4.svg#Px Grotesk Regular")format("svg");
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+}
+
+.px-grotesk {
+    font-family: 'Px Grotesk Regular', sans-serif;
+}

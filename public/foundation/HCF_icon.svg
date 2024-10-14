@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93333"
+   version="1.1"
+   id="svg5360"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="HCF_icon.svg">
+  <title
+     id="title6155">Hack Cambridge Foundation Logo </title>
+  <defs
+     id="defs5354" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="437.30629"
+     inkscape:cy="540.1075"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1024"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="true" />
+  <metadata
+     id="metadata5357">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Hack Cambridge Foundation Logo </dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Eliot Lim</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>Hack Cambridge Foundation</dc:title>
+          </cc:Agent>
+        </dc:rights>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-26.066725)"
+     style="display:inline">
+    <path
+       sodipodi:type="star"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:18.00013924;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5362"
+       sodipodi:sides="6"
+       sodipodi:cx="135.46667"
+       sodipodi:cy="161.53339"
+       sodipodi:r1="96.44529"
+       sodipodi:r2="83.524063"
+       sodipodi:arg1="1.5707963"
+       sodipodi:arg2="2.0943951"
+       inkscape:flatsided="true"
+       inkscape:rounded="0.09"
+       inkscape:randomized="0"
+       d="m 135.46668,257.97868 c -8.68008,0 -79.184037,-40.70548 -83.524075,-48.22265 -4.340038,-7.51716 -4.34004,-88.92812 -2e-6,-96.44529 4.340037,-7.51716 74.843997,-48.222643 83.524067,-48.222643 8.68008,-1e-6 79.18404,40.705473 83.52407,48.222643 4.34004,7.51717 4.34004,88.92812 1e-5,96.44529 -4.34004,7.51717 -74.844,48.22265 -83.52407,48.22265 z"
+       inkscape:transform-center-y="-1.328506e-06"
+       inkscape:transform-center-x="-1.7845062e-05" />
+  </g>
+</svg>
