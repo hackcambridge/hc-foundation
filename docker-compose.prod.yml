@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: hc-foundation-prod
+    image: hc-foundation-prod
+    build:
+      context: .
+      dockerfile: Dockerfile

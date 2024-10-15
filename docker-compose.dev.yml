@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: hc-foundation-dev
+    image: hc-foundation-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./:/app/
+    ports:
+      - 3000:3000
