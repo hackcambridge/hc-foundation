@@ -383,13 +383,13 @@ export function AvatarUpload({
     <>
       <div className="group flex flex-col w-full md:w-3/5 is-filled">
         <div
-          className="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 bg-default-100 data-[hover=true]:bg-default-200 group-data-[focus=true]:bg-default-100 min-h-10 rounded-medium flex-col items-start justify-center gap-0 transition-background motion-reduce:transition-none !duration-150 outline-none group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background h-14 py-2.5 is-filled"
+          className="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 bg-default-100 data-[hover=true]:bg-default-200 group-data-[focus=true]:bg-default-100 min-h-10 rounded-medium flex-col items-start justify-center gap-0 transition-background motion-reduce:transition-none !duration-150 outline-none group-data-[focus-visible=true]:z-10 group-data-[focus-visible=true]:ring-2 group-data-[focus-visible=true]:ring-focus group-data-[focus-visible=true]:ring-offset-2 group-data-[focus-visible=true]:ring-offset-background h-16 py-2.5 is-filled"
           data-slot="input-wrapper"
         >
           <label
-            className="block text-foreground-500 cursor-text text-xs py-1.5"
-            data-slot="label"
-            htmlFor="avatar"
+          className="block text-foreground-500 cursor-text text-xs py-1.5"
+          data-slot="label"
+          htmlFor="avatar"
           >
             Avatar
             <span className="text-red-500"> *</span>

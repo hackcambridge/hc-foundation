@@ -5,7 +5,7 @@ export default function CharityPage() {
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8">
-        <div className="inline-block text-center justify-center">
+        <div className="inline-block text-center justify-center px-grotesk">
           <h1 className={title()}>Charity</h1>
           <p className="py-4 text-center">
             The Hack Cambridge Foundation (HCF) is a charity that aims to inspire and empower the next generation of technologists. <br />

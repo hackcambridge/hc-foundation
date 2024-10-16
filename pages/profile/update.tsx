@@ -5,13 +5,8 @@ import { Link } from "@nextui-org/link";
 
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import {
-  AuthContext,
-  FirstNameUpdate,
-  LastNameUpdate,
-  EmailUpdate,
-  Password,
-} from "@/components/auth";
+import { AuthContext } from "@/components/auth";
+import { FirstName, LastName, Email, Password } from "@/components/form";
 
 export default function ProfilePage() {
   const { isLoggedIn, isUpdated, role, updateUser } = useContext(AuthContext);
@@ -65,10 +60,10 @@ export default function ProfilePage() {
                       type="text"
                       value={role}
                     />
-                    <FirstNameUpdate />
-                    <LastNameUpdate />
-                    <EmailUpdate />
-                    <Password />
+                    <FirstName type="update" />
+                    <LastName type="update" />
+                    <Email type="update" />
+                    <Password type="update" />
                     <Button
                       className="bg-blue-500 text-white rounded-md px-4 py-2 gap-y-16"
                       color="primary"

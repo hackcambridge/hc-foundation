@@ -5,7 +5,8 @@ import { Spacer } from "@nextui-org/spacer";
 
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { AuthContext, FirstName, LastName, Email, PasswordInput } from "@/components/auth";
+import { AuthContext } from "@/components/auth";
+import { FirstName, LastName, Email, Password } from "@/components/form";
 
 export default function SignUpPage() {
   const { isLoggedIn, isSignedUp, firstName, lastName, signUp } = useContext(AuthContext);
@@ -41,10 +42,10 @@ export default function SignUpPage() {
             <>
               <h1 className={title()}>Sign Up</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
-                <FirstName />
-                <LastName />
-                <Email />
-                <PasswordInput />
+                <FirstName type="update" />
+                <LastName type="update" />
+                <Email type="update" />
+                <Password type="update" />
                 <Button
                   className="bg-blue-500 text-white rounded-md px-4 py-2 gap-y-16"
                   color="primary"

@@ -4,7 +4,8 @@ import { Link } from "@nextui-org/link";
 
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { AuthContext, Email, PasswordInput } from "@/components/auth";
+import { AuthContext } from "@/components/auth";
+import { Email, Password } from "@/components/form";
 
 export default function SignInPage() {
   const { isLoggedIn, role, isSigningIn, signIn, signInAgain } = useContext(AuthContext);
@@ -30,26 +31,22 @@ export default function SignInPage() {
                 >
                   Go to Profile
                 </Button>
-                {role === "Admin" && (
-                  <>
-                    <p className="text-lg text-default-600">
-                      You are logged in as an admin.
-                    </p>
-                    <p className="text-lg text-default-600">
-                      Use the button below to access the admin panel.
-                    </p>
-                    <Button
-                      showAnchorIcon
-                      as={Link}
-                      color="default"
-                      href="/admin"
-                      size="md"
-                      variant="bordered"
-                    >
-                      Go to Admin Panel
-                    </Button>
-                  </>
-                )}
+                <p className="text-lg text-default-600">
+                  You are logged in as an {role}.
+                </p>
+                <p className="text-lg text-default-600">
+                  Use the button below to access the {role} panel.
+                </p>
+                <Button
+                  showAnchorIcon
+                  as={Link}
+                  color="default"
+                  href={`/${role.toLowerCase()}`}
+                  size="md"
+                  variant="bordered"
+                >
+                  Go to {role} Panel
+                </Button>
               </div>
             </>
           )}
@@ -75,8 +72,8 @@ export default function SignInPage() {
             <>
               <h1 className={title()}>Sign In</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
-                <Email />
-                <PasswordInput />
+                <Email type="input" />
+                <Password type="input" />
                 <Button
                   className="bg-blue-500 text-white rounded-md px-4 py-2 gap-y-16"
                   color="primary"

@@ -7,8 +7,10 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   isSigningIn: false,
   isSignedUp: false,
+  isUpdated: false,
   isEmailValid: false,
   isPasswordValid: false,
+  userId: "",
   avatar: "",
   avatarType: "",
   avatarURL: "",
@@ -30,15 +32,18 @@ export const AuthContext = createContext({
   signUp: async () => {},
   signUpAgain: () => {},
   signOut: async () => {},
+  updateUser: async () => {},
 });
 
 export function AuthProviderComponent({ children }: { children: ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [isUpdated, setIsUpdated] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isTokenValid, setIsTokenValid] = useState(false);
+  const [userId, setUserId] = useState("");
   const [avatar, setAvatar] = useState("");
   const [avatarType, setAvatarType] = useState("");
   const [avatarURL, setAvatarURL] = useState("");
@@ -81,6 +86,7 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
       const data = await response.json();
 
       if (response.ok) {
+        setUserId(data?.user._id);
         setAvatar(data?.user.avatar);
         setAvatarType(data?.user.avatarType);
         setAvatarURL(data?.user.avatarURL);
@@ -121,6 +127,7 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
     if (response.ok) {
       setIsLoggedIn(true);
       setIsSigningIn(true);
+      setUserId(data?.user._id);
       setAvatar(data?.user.avatar);
       setAvatarType(data?.user.avatarType);
       setAvatarURL(data?.user.avatarURL);
@@ -160,6 +167,7 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
     if (response.ok) {
       setIsLoggedIn(true);
       setIsSignedUp(true);
+      setUserId(data?.user._id);
       setAvatar(data?.user.avatar);
       setAvatarType(data?.user.avatarType);
       setAvatarURL(data?.user.avatarURL);
@@ -181,6 +189,7 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
 
   async function signOut() {
     setIsLoggedIn(false);
+    setUserId("");
     setAvatar("");
     setAvatarType("");
     setAvatarURL("");
@@ -194,6 +203,32 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("role");
     sessionStorage.removeItem("token");
+  }
+
+  const updateFormData = JSON.stringify({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
+
+  async function updateUser() {
+    const response = await fetch(
+      `/api/user/update?userID=${userId}&role=${role}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: updateFormData,
+      },
+    );
+
+    if (response.ok) {
+      setIsUpdated(true);
+    } else {
+      setIsUpdated(false);
+    }
   }
 
   function validateEmail() {
@@ -214,8 +249,10 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
       isLoggedIn,
       isSigningIn,
       isSignedUp,
+      isUpdated,
       isEmailValid,
       isPasswordValid,
+      userId,
       avatar,
       avatarType,
       avatarURL,
@@ -237,266 +274,9 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
       signUp,
       signUpAgain,
       signOut,
+      updateUser,
     }}>
       {children}
     </AuthContext.Provider>
-  );
-}
-
-export function FirstName() {
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const { setFirstName } = useContext(AuthContext);
-
-  useEffect(() => {
-    setFirstName(firstNameInput);
-  }, [firstNameInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      id="first-name"
-      label="First Name"
-      placeholder="Enter your first name"
-      type="text"
-      value={firstNameInput}
-      onValueChange={setFirstNameInput}
-    />
-  );
-}
-
-export function FirstNameUpdate() {
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const { firstName, setFirstName } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (firstName !== "") {
-      setFirstNameInput(firstName);
-    }
-  }, [firstName]);
-
-  useEffect(() => {
-    setFirstName(firstNameInput);
-  }, [firstNameInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      id="first-name"
-      label="First Name"
-      placeholder="Enter your first name"
-      type="text"
-      value={firstNameInput}
-      onValueChange={setFirstNameInput}
-    />
-  );
-}
-
-export function LastName() {
-  const [lastNameInput, setLastNameInput] = useState("");
-  const { setLastName } = useContext(AuthContext);
-
-  useEffect(() => {
-    setLastName(lastNameInput);
-  }, [lastNameInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      id="last-name"
-      label="Last Name"
-      placeholder="Enter your last name"
-      type="text"
-      value={lastNameInput}
-      onValueChange={setLastNameInput}
-    />
-  );
-}
-
-export function LastNameUpdate() {
-  const [lastNameInput, setLastNameInput] = useState("");
-  const { lastName, setLastName } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (lastName !== "") {
-      setLastNameInput(lastName);
-    }
-  }, [lastName]);
-
-  useEffect(() => {
-    setLastName(lastNameInput);
-  }, [lastNameInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      id="last-name"
-      label="Last Name"
-      placeholder="Enter your last name"
-      type="text"
-      value={lastNameInput}
-      onValueChange={setLastNameInput}
-    />
-  );
-}
-
-export function Email() {
-  const [emailInput, setEmailInput] = useState("");
-  const { setEmail, validateEmail, isEmailValid } = useContext(AuthContext);
-
-  useEffect(() => {
-    setEmail(emailInput);
-    validateEmail();
-  }, [emailInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      color={isEmailValid ? "default" : "danger"}
-      errorMessage="Please enter a valid email"
-      id="email"
-      isInvalid={!isEmailValid}
-      label="Email"
-      placeholder="Enter your email address"
-      type="email"
-      value={emailInput}
-      onValueChange={setEmailInput}
-    />
-  );
-}
-
-export function EmailUpdate() {
-  const [emailInput, setEmailInput] = useState("");
-  const { email, setEmail, validateEmail, isEmailValid } =
-    useContext(AuthContext);
-
-  useEffect(() => {
-    if (email !== "") {
-      setEmailInput(email);
-    }
-  }, [email]);
-
-  useEffect(() => {
-    setEmail(emailInput);
-    validateEmail();
-  }, [emailInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      color={isEmailValid ? "default" : "danger"}
-      errorMessage="Please enter a valid email"
-      id="email"
-      isInvalid={!isEmailValid}
-      label="Email"
-      placeholder="Enter your email address"
-      type="email"
-      value={emailInput}
-      onValueChange={setEmailInput}
-    />
-  );
-}
-
-export function PasswordInput() {
-  const [passwordInput, setPasswordInput] = useState("");
-  const { setPassword, validatePassword } = useContext(AuthContext);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setPassword(passwordInput);
-    validatePassword();
-  }, [passwordInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      endContent={
-        <button
-          aria-label="toggle password visibility"
-          className="focus:outline-none"
-          type="button"
-          onClick={() => setIsVisible(!isVisible)}
-        >
-          {isVisible ? (
-            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-          ) : (
-            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-          )}
-        </button>
-      }
-      id="password"
-      label="Password"
-      placeholder="Enter your password"
-      type={isVisible ? "text" : "password"}
-      value={passwordInput}
-      onValueChange={setPasswordInput}
-    />
-  );
-}
-
-export function Password() {
-  const [passwordInput, setPasswordInput] = useState("");
-  const { setPassword, validatePassword, isPasswordValid } =
-    useContext(AuthContext);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setPassword(passwordInput);
-    validatePassword();
-  }, [passwordInput]);
-
-  return (
-    <Input
-      fullWidth
-      isRequired
-      className="w-full md:w-3/5"
-      color={isPasswordValid ? "default" : "danger"}
-      endContent={
-        <button
-          aria-label="toggle password visibility"
-          className="focus:outline-none"
-          type="button"
-          onClick={() => setIsVisible(!isVisible)}
-        >
-          {isVisible ? (
-            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-          ) : (
-            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-          )}
-        </button>
-      }
-      errorMessage={
-        <p className="text-sm text-danger-500">
-          Password minimum requirements:
-          <ul>
-            <li>At least 8 characters</li>
-            <li>One uppercase letter</li>
-            <li>One lowercase letter</li>
-            <li>One number</li>
-            <li>One special character</li>
-          </ul>
-        </p>
-      }
-      id="password"
-      isInvalid={!isPasswordValid}
-      label="Password"
-      placeholder="Enter your password"
-      type={isVisible ? "text" : "password"}
-      value={passwordInput}
-      onValueChange={setPasswordInput}
-    />
   );
 }
