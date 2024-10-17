@@ -76,18 +76,16 @@ export default function ProfilePage() {
                 )}
               </div>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
-                {role === "Admin" && (
-                  <Button
-                    showAnchorIcon
-                    as={Link}
-                    color="default"
-                    href="/profile/avatar"
-                    size="md"
-                    variant="bordered"
-                  >
-                    Update Avatar
-                  </Button>
-                )}
+                <Button
+                  showAnchorIcon
+                  as={Link}
+                  color="default"
+                  href="/profile/avatar"
+                  size="md"
+                  variant="bordered"
+                >
+                  Update Avatar
+                </Button>
                 <Button
                   showAnchorIcon
                   as={Link}

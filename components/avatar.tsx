@@ -216,6 +216,8 @@ export const UserAvatar: FC<ThemeSwitchProps> = ({
 const Result = ({ status }: { status: string }) => {
   if (status === "success") {
     return <p>✅ Avatar uploaded successfully!</p>;
+  } else if (status === "removed") {
+    return <p>✅ Avatar removed successfully!</p>;
   } else if (status === "fail") {
     return <p>❌ Avatar upload failed!</p>;
   } else if (status === "uploading") {
@@ -269,7 +271,7 @@ export function AvatarUpload({
   const [avatarURL, setAvatarURL] = useState("");
   const [avatarAvailable, setAvatarAvailable] = useState(false);
   const [status, setStatus] = useState<
-    "initial" | "uploading" | "success" | "invalid" | "fail"
+    "initial" | "uploading" | "success" | "invalid" | "fail" | "removed"
   >("initial");
 
   useEffect(() => {
@@ -292,10 +294,6 @@ export function AvatarUpload({
 
       setAvatar(avatar);
       setAvatarName(avatar.name);
-      const path =
-        "/images/avatars/" + userId + "." + avatar.name.split(".")[1];
-
-      setAvatarPath(path);
       setAvatarType(avatar.type);
       if (avatar.type.split("/")[0] !== "image") {
         setStatus("invalid");
@@ -317,12 +315,14 @@ export function AvatarUpload({
       try {
         const formData = new FormData();
 
-        formData.append("avatar", avatar, avatarName);
+        formData.append("file", avatar, avatarName);
 
         const res_1 = await fetch(`/api/avatar/upload?userId=${userId}`, {
           method: "POST",
           body: formData,
         });
+
+        const data_1 = await res_1.json();
 
         const res_role = await fetch(`/api/user/role?email=${email}`, {
           method: "GET",
@@ -331,18 +331,28 @@ export function AvatarUpload({
           },
         });
 
+        const res_2 = await fetch(`/api/avatar/download?userId=${userId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data_2 = await res_2.json();
+        setAvatarPath(data_2.path);
+
         const userRole = await res_role.json();
 
         const userData = JSON.stringify({
           userID: userId.toString(),
           role: userRole.role.toString(),
           avatarName: avatarName.toString(),
-          avatarPath: avatarPath.toString(),
+          avatarPath: data_2.path.toString(),
           avatarType: avatarType.toString(),
           avatarURL: avatarURL.toString(),
         });
 
-        const res_2 = await fetch("/api/user/save", {
+        const res_3 = await fetch("/api/user/save", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -350,28 +360,20 @@ export function AvatarUpload({
           body: userData,
         });
 
-        const res_3 = await fetch(`/api/avatar/find?avatar=${avatarPath}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const data_1 = await res_1.json();
-        const data_2 = await res_2.json();
         const data_3 = await res_3.json();
 
         if (!res_1.ok) {
           setStatus("fail");
-          throw new Error(data_1.message);
+          throw new Error(data_1.error);
         } else if (!res_2.ok) {
           setStatus("fail");
-          throw new Error(data_2.message);
+          throw new Error(data_2.error);
         } else if (!res_3.ok) {
           setStatus("fail");
-          throw new Error(data_3.message);
+          throw new Error(data_3.error);
         } else {
           setStatus("success");
+          authProvider.refreshUser();
         }
       } catch (error) {
         setStatus("fail");
@@ -463,7 +465,8 @@ export function AvatarUpload({
               setAvatarPath("");
               setAvatarType("");
               setAvatarURL("");
-              setStatus("success");
+              setStatus("removed");
+              authProvider.refreshUser();
             } catch (error) {
               console.error(error);
               setStatus("fail");

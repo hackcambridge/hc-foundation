@@ -1,7 +1,4 @@
-import { useState, createContext, ReactNode, useEffect, useContext } from "react";
-import { Input } from "@nextui-org/input";
-
-import { EyeFilledIcon, EyeSlashFilledIcon } from "@/components/icons";
+import { useState, createContext, ReactNode, useEffect } from "react";
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -33,6 +30,7 @@ export const AuthContext = createContext({
   signUpAgain: () => {},
   signOut: async () => {},
   updateUser: async () => {},
+  refreshUser: async () => {},
 });
 
 export function AuthProviderComponent({ children }: { children: ReactNode }) {
@@ -231,6 +229,30 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
     }
   }
 
+  async function refreshUser() {
+    const response = await fetch("/api/user/find", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      setUserId(data?.user._id);
+      setAvatar(data?.user.avatar);
+      setAvatarType(data?.user.avatarType);
+      setAvatarURL(data?.user.avatarURL);
+      setFirstName(data?.user.firstName);
+      setLastName(data?.user.lastName);
+      setEmail(data?.user.email);
+      setRole(data?.role);
+      setAccessToken(data?.token);
+      setNotifications(data?.user.notifications);
+    }
+  }
+
   function validateEmail() {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   
@@ -275,6 +297,7 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
       signUpAgain,
       signOut,
       updateUser,
+      refreshUser,
     }}>
       {children}
     </AuthContext.Provider>

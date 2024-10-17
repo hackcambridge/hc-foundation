@@ -8,7 +8,6 @@ import { AuthContext } from "@/components/auth";
 import { ShowAvatar, AvatarUpload } from "@/components/avatar";
 
 export default function ProfilePage() {
-  // Need to experiment with AWS S3 Image Upload and Download to use these functions
   const { isLoggedIn, userId, email, role } = useContext(AuthContext);
 
   return (

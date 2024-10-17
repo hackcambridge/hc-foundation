@@ -7,6 +7,7 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const userID = ObjectId.createFromHexString(req.body.userID);
+    const role = req.body.role;
     const avatarName = req.body.avatarName;
     const avatarPath = req.body.avatarPath;
     const avatarType = req.body.avatarType;
@@ -14,37 +15,25 @@ export default async function handler(req, res) {
 
     try {
       const Login = client.db("Login");
-      const User = Login.collection("User");
-      const Admin = Login.collection("Admin");
+      const Collection = Login.collection(role);
 
-      const user = await User.findOne({ _id: userID });
-      const admin = await Admin.findOne({ _id: userID });
+      const collection = await Collection.findOne({ _id: userID });
 
-      if (user) {
-        await User.updateOne(
-          { _id: userID },
-          {
-            $set: {
-              avatar: avatarPath,
-              avatarName: avatarName,
-              avatarType: avatarType,
-              avatarURL: avatarURL,
-            },
-          },
-        );
-      } else if (admin) {
-        await Admin.updateOne(
-          { _id: userID },
-          {
-            $set: {
-              avatar: avatarPath,
-              avatarName: avatarName,
-              avatarType: avatarType,
-              avatarURL: avatarURL,
-            },
-          },
-        );
+      if (!collection) {
+        return res.status(404).json({ error: "User not found" });
       }
+      
+      await Collection.updateOne(
+        { _id: userID },
+        {
+          $set: {
+            avatar: avatarPath,
+            avatarName: avatarName,
+            avatarType: avatarType,
+            avatarURL: avatarURL,
+          },
+        },
+      );
 
       res.status(200).json({ message: "Avatar saved successfully" });
     } catch (error) {

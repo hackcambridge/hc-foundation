@@ -43,7 +43,7 @@ export default function ProfilePage() {
               <div className="flex flex-col lg:flex-row items-center w-full lg:space-x-8">
                 <div className="w-3/5 md:2/5 lg:w-1/3 flex flex-col items-center text-center space-y-4 py-4">
                   <ShowAvatar />
-                  {/* <Button
+                  <Button
                     showAnchorIcon
                     as={Link}
                     color="default"
@@ -52,8 +52,7 @@ export default function ProfilePage() {
                     variant="bordered"
                   >
                     Update Avatar
-                  </Button> */}
-                  {/* Need to experiment with AWS S3 Bucket Upload and Download to use Profile Avatars */}
+                  </Button>
                 </div>
                 <div className="lg:w-2/3 flex flex-col items-start text-center space-y-4 py-4">
                   <p className="md:text-lg text-center">
