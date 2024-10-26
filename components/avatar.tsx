@@ -20,7 +20,7 @@ export const UserAvatar: FC<ThemeSwitchProps> = ({
   className,
   classNames,
 }) => {
-  const { isLoggedIn, avatar, firstName, lastName, notifications } =
+  const { isLoggedIn, avatar, role, firstName, lastName, notifications } =
     useContext(AuthContext);
   const { theme } = useTheme();
   
@@ -186,6 +186,12 @@ export const UserAvatar: FC<ThemeSwitchProps> = ({
               </Link>
               <Link
                 className="block px-4 py-2 text-sm text-center text-white hover:bg-gray-700"
+                href={`/${role.toLowerCase()}`}
+              >
+                Go To Panel
+              </Link>
+              <Link
+                className="block px-4 py-2 text-sm text-center text-white hover:bg-gray-700"
                 href="/sign-out"
               >
                 Sign out
@@ -198,6 +204,12 @@ export const UserAvatar: FC<ThemeSwitchProps> = ({
                 href="/profile"
               >
                 Profile Settings
+              </Link>
+              <Link
+                className="block px-4 py-2 text-sm text-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                href={`/${role.toLowerCase()}`}
+              >
+                Go To Panel
               </Link>
               <Link
                 className="block px-4 py-2 text-sm text-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"

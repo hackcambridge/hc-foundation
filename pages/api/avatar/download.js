@@ -1,6 +1,6 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-const fs = require("fs");
-const path = require("path");
+import path from "path";
+import fs from "fs";
 
 // Initialize the S3 Client
 const s3Client = new S3Client({
