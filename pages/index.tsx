@@ -28,29 +28,29 @@ export default function IndexPage() {
             />
           </div>
         )}
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           The Hack Cambridge Foundation is a charity that aims to inspire and
           empower the next generation of technologists.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           We run events and programmes that encourage young people to explore technology and
           develop their skills.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           We believe that everyone should have the
           opportunity to learn about technology, regardless of their background.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           The animation above is a list of the hackathons, which we have run since 2016.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           Please feel free to read about the foundation and its origins on the Charity page.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           We are excited to see what the future holds for us and the young people
           we work with.
         </h1>
-        <h1 className="text-4xl font-bold text-center">
+        <h1 className="text-xl font-bold text-center">
           If you would like to get involved, please get in touch.
           If you would like to support us, please consider making a donation.
         </h1>

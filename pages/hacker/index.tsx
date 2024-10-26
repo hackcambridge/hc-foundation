@@ -4,25 +4,25 @@ import { Link } from "@nextui-org/link";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 
-export default function CommitteeMemberPage() {
+export default function HackerPage() {
   return (
     <DefaultLayout>
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="w-full text-center">
-        <h1 className={title()}>Committee Member</h1>
+        <h1 className={title()}>Hacker</h1>
         <div className="flex flex-col items-center justify-center py-8 space-y-8">
           <Button
             showAnchorIcon
             as={Link}
-            href="/committee/users"
+            href="/hacker/users"
             variant="bordered"
           >
-            Manage Users
+            View Users
           </Button>
           <Button
             showAnchorIcon
             as={Link}
-            href="/committee/committee"
+            href="/hacker/committee"
             variant="bordered"
           >
             View Committee
@@ -30,7 +30,7 @@ export default function CommitteeMemberPage() {
           <Button
             showAnchorIcon
             as={Link}
-            href="/committee/trustees"
+            href="/hacker/trustees"
             variant="bordered"
           >
             View Trustees
@@ -38,7 +38,7 @@ export default function CommitteeMemberPage() {
           <Button
             showAnchorIcon
             as={Link}
-            href="/committee/admins"
+            href="/hacker/admins"
             variant="bordered"
           >
             View Admins
