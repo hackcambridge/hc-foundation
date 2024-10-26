@@ -16,7 +16,7 @@ export default function DefaultLayout({
       </main>
       <footer className="w-full flex items-center justify-center py-3">
         <span className="px-grotesk text-default-500">
-          The Hack Cambridge Foundation
+          &copy; The Hack Cambridge Foundation {new Date().getFullYear()}
         </span>
       </footer>
     </div>

@@ -5,8 +5,8 @@ export const loginMethods = {
   LinkedIn: 3,
 };
 
-export async function validateToken({ Admin, token }) {
-  const admin = await Admin.findOne({ token });
+export async function validateToken({ Role, token }) {
+  const role = await Role.findOne({ token });
 
-  return !!admin;
+  return !!role;
 }

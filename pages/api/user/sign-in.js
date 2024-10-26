@@ -9,6 +9,7 @@ export default async function handler(req, res) {
   try {
     const Login = client.db("Login");
     const User = Login.collection("User");
+    const Hacker = Login.collection("Hacker");
     const Committee = Login.collection("Committee");
     const Sponsor = Login.collection("Sponsor");
     const Trustee = Login.collection("Trustee");
@@ -24,6 +25,7 @@ export default async function handler(req, res) {
       // If the user exists, check the password
       const collections = [
         { name: "User", collection: User },
+        { name: "Hacker", collection: Hacker },
         { name: "Committee", collection: Committee },
         { name: "Sponsor", collection: Sponsor },
         { name: "Trustee", collection: Trustee },

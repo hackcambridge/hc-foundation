@@ -16,6 +16,8 @@ export const Head = () => {
         name="viewport"
       />
       <link href="/favicon.ico" rel="icon" />
+      <link rel="manifest" href="/site.webmanifest" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     </NextHead>
   );
 };

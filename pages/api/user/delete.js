@@ -21,7 +21,10 @@ export default async function handler(req, res) {
       if (!token) {
         return res.status(403).json({ error: "Invalid or missing token" });
       }
-      if (!(await validateToken({ Admin, token }))) {
+
+      const isAdmin = await validateToken({ Role: Admin, token });
+
+      if (!isAdmin) {
         return res.status(403).json({ error: "Invalid or expired token" });
       }
 
@@ -32,7 +35,7 @@ export default async function handler(req, res) {
         await User.deleteOne({ email });
         res.status(200).json({ message: "User deleted" });
       } else {
-        res.status(404).json({ error: "No users or admins found" });
+        res.status(404).json({ error: "No user found" });
       }
     } else {
       res.setHeader("Allow", ["POST"]);

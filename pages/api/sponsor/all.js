@@ -13,7 +13,9 @@ export default async function handler(req, res) {
       }
 
       const Login = client.db("Login");
-      const User = Login.collection("User");
+      const Sponsor = Login.collection("Sponsor");
+      const Committee = Login.collection("Committee");
+      const Trustee = Login.collection("Trustee");
       const Admin = Login.collection("Admin");
 
       const token = authHeader.split(" ")[1];
@@ -22,20 +24,22 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Invalid or missing token" });
       }
 
+      const isCommittee = await validateToken({ Role: Committee, token });
+      const isTrustee = await validateToken({ Role: Trustee, token });
       const isAdmin = await validateToken({ Role: Admin, token });
 
-      if (!isAdmin) {
+      if (!isCommittee && !isTrustee && !isAdmin) {
         return res.status(403).json({ error: "Invalid or expired token" });
       }
 
-      const users = await User.find()
+      const sponsors = await Sponsor.find()
         .sort({ firstName: 1, lastName: 1 })
         .toArray();
 
-      if (users.length > 0) {
-        res.status(200).json(users);
+      if (sponsors.length > 0) {
+        res.status(200).json(sponsors);
       } else {
-        res.status(404).json({ error: "No users found" });
+        res.status(404).json({ error: "No sponsors found" });
       }
     } else {
       res.setHeader("Allow", ["GET"]);

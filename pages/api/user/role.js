@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   try {
     const Login = client.db("Login");
     const User = Login.collection("User");
+    const Hacker = Login.collection("Hacker");
     const Committee = Login.collection("Committee");
     const Sponsor = Login.collection("Sponsor");
     const Trustee = Login.collection("Trustee");
@@ -14,6 +15,7 @@ export default async function handler(req, res) {
 
     if (req.method === "GET") {
       const user = await User.findOne({ email });
+      const hacker = await Hacker.findOne({ email });
       const committee = await Committee.findOne({ email });
       const sponsor = await Sponsor.findOne({ email });
       const trustee = await Trustee.findOne({ email });
@@ -21,6 +23,8 @@ export default async function handler(req, res) {
 
       if (user) {
         res.status(200).json({ role: "User" });
+      } else if (hacker) {
+        res.status(200).json({ role: "Hacker" });
       } else if (committee) {
         res.status(200).json({ role: "Committee" });
       } else if (sponsor) {
