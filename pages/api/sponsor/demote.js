@@ -13,6 +13,8 @@ export default async function handler(req, res) {
       }
 
       const Login = client.db("Login");
+      const User = Login.collection("User");
+      const Sponsor = Login.collection("Sponsor");
       const Committee = Login.collection("Committee");
       const Trustee = Login.collection("Trustee");
       const Admin = Login.collection("Admin");
@@ -23,22 +25,23 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Invalid or missing token" });
       }
 
+      const isCommittee = await validateToken({ Role: Committee, token });
       const isTrustee = await validateToken({ Role: Trustee, token });
       const isAdmin = await validateToken({ Role: Admin, token });
 
-      if (!isAdmin && !isTrustee) {
+      if (!isCommittee && !isTrustee && !isAdmin) {
         return res.status(403).json({ error: "Invalid or expired token" });
       }
 
       const email = req.body.email;
-      const committeeMember = await Committee.findOne({ email });
+      const sponsor = await Sponsor.findOne({ email });
 
-      if (committeeMember) {
-        await Committee.deleteOne({ email });
-        await Trustee.insertOne(committeeMember);
-        res.status(200).json({ message: "Committee member promoted to trustee" });
+      if (sponsor) {
+        await Sponsor.deleteOne({ email });
+        await User.insertOne(hacker);
+        res.status(200).json({ message: "Sponsor demoted to user" });
       } else {
-        res.status(404).json({ error: "No committee member found" });
+        res.status(404).json({ error: "No hacker found" });
       }
     } else {
       res.setHeader("Allow", ["POST"]);

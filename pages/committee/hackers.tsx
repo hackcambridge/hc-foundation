@@ -9,15 +9,15 @@ import DefaultLayout from "@/layouts/default";
 import { AuthContext } from "@/components/auth";
 import { User } from "@/utils/types";
 
-export default function TrusteeUsersPage() {
+export default function CommitteeHackersPage() {
   const authProvider = useContext(AuthContext);
   const [isFetching, setIsFetching] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
-  const [trustees, setTrustees] = useState<User[]>([]);
+  const [hackers, setHackers] = useState<User[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/trustee/all", {
+      const response = await fetch("/api/hacker/all", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export default function TrusteeUsersPage() {
       if (response.ok) {
         const data = await response.json();
 
-        setTrustees(data);
+        setHackers(data);
         setHasAccess(true);
       } else {
         setHasAccess(false);
@@ -37,7 +37,7 @@ export default function TrusteeUsersPage() {
 
     const sessionRole = window.sessionStorage.getItem("role")?.toString();
 
-    if (authProvider.isLoggedIn && sessionRole === "Trustee" && isFetching) {
+    if (authProvider.isLoggedIn && sessionRole === "Committee" && isFetching) {
       setIsFetching(false);
       fetchData();
     }
@@ -47,13 +47,13 @@ export default function TrusteeUsersPage() {
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="w-full text-center">
-          {authProvider.isLoggedIn && authProvider.role === "Trustee" && (
+          {authProvider.isLoggedIn && authProvider.role === "Committee" && (
             <>
-              <h1 className={title()}>Trustees</h1>
+              <h1 className={title()}>Committee Member Hackers</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <div className="flex flex-col w-full">
-                  <span className="text-4xl font-bold">{trustees?.length}</span>
-                  <span className="text-lg">Trustees</span>
+                  <span className="text-4xl font-bold">{hackers?.length}</span>
+                  <span className="text-lg">Hackers</span>
                 </div>
                 {!hasAccess && (
                   <Spinner
@@ -63,8 +63,8 @@ export default function TrusteeUsersPage() {
                     size="md"
                   />
                 )}
-                {hasAccess && trustees.length === 0 && (
-                  <p className="text-lg">No trustees found.</p>
+                {hasAccess && hackers.length === 0 && (
+                  <p className="text-lg">No hackers found.</p>
                 )}
                 {hasAccess && (
                   <table className="min-w-full">
@@ -81,10 +81,11 @@ export default function TrusteeUsersPage() {
                             Email Address
                           </div>
                         </th>
+                        <th className="py-2 text-xs md:text-base">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {trustees.map((user, index) => (
+                      {hackers.map((user, index) => (
                         <tr key={index} className="text-center">
                           <td className="py-2 px-auto text-xs md:text-base">
                             <div className="flex justify-center">
@@ -107,6 +108,26 @@ export default function TrusteeUsersPage() {
                               {user.email}
                             </div>
                           </td>
+                          <td>
+                            <Button
+                              className="py-2 text-xs md:text-base"
+                              onClick={async () => {
+                                await fetch(`/api/hacker/demote`, {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${authProvider.accessToken}`,
+                                  },
+                                  body: JSON.stringify({
+                                    email: user.email,
+                                  }),
+                                });
+                                setIsFetching(true);
+                              }}
+                            >
+                              Make User
+                            </Button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -116,11 +137,11 @@ export default function TrusteeUsersPage() {
                   showAnchorIcon
                   as={Link}
                   color="default"
-                  href="/trustee"
+                  href="/committee"
                   size="md"
                   variant="bordered"
                 >
-                  Go to Trustee Panel
+                  Go to Committee Panel
                 </Button>
                 <Button
                   showAnchorIcon
@@ -135,9 +156,9 @@ export default function TrusteeUsersPage() {
               </div>
             </>
           )}
-          {(!authProvider.isLoggedIn || authProvider.role !== "Trustee") && (
+          {(!authProvider.isLoggedIn || authProvider.role !== "Committee") && (
             <>
-              <h1 className={title()}>Trustees</h1>
+              <h1 className={title()}>Committee Member Hackers</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.

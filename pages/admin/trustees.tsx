@@ -176,7 +176,7 @@ export default function AdminTrusteesPage() {
           )}
           {(!authProvider.isLoggedIn || authProvider.role !== "Admin") && (
             <>
-              <h1 className={title()}>Admin Users</h1>
+              <h1 className={title()}>Admin Trustees</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.

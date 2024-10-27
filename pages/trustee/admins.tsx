@@ -137,7 +137,7 @@ export default function TrusteeUsersPage() {
           )}
           {(!authProvider.isLoggedIn || authProvider.role !== "Trustee") && (
             <>
-              <h1 className={title()}>Trustee Committee Members</h1>
+              <h1 className={title()}>Trustee Admins</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.

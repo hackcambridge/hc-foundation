@@ -137,7 +137,7 @@ export default function CommitteeUsersPage() {
           )}
           {(!authProvider.isLoggedIn || authProvider.role !== "Committee") && (
             <>
-              <h1 className={title()}>Committee Member Users</h1>
+              <h1 className={title()}>Committee Member Admins</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.

@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       const committeeMember = await Committee.findOne({ email });
 
       if (committeeMember) {
-        await Admin.deleteOne({ email });
+        await Committee.deleteOne({ email });
         await User.insertOne(committeeMember);
         res.status(200).json({ message: "Committee member demoted to user" });
       } else {

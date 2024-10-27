@@ -9,15 +9,15 @@ import DefaultLayout from "@/layouts/default";
 import { AuthContext } from "@/components/auth";
 import { User } from "@/utils/types";
 
-export default function TrusteeUsersPage() {
+export default function TrusteeSponsorsPage() {
   const authProvider = useContext(AuthContext);
   const [isFetching, setIsFetching] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
-  const [trustees, setTrustees] = useState<User[]>([]);
+  const [sponsors, setSponsors] = useState<User[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/trustee/all", {
+      const response = await fetch("/api/sponsor/all", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export default function TrusteeUsersPage() {
       if (response.ok) {
         const data = await response.json();
 
-        setTrustees(data);
+        setSponsors(data);
         setHasAccess(true);
       } else {
         setHasAccess(false);
@@ -49,11 +49,11 @@ export default function TrusteeUsersPage() {
         <div className="w-full text-center">
           {authProvider.isLoggedIn && authProvider.role === "Trustee" && (
             <>
-              <h1 className={title()}>Trustees</h1>
+              <h1 className={title()}>Trustee Sponsors</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <div className="flex flex-col w-full">
-                  <span className="text-4xl font-bold">{trustees?.length}</span>
-                  <span className="text-lg">Trustees</span>
+                  <span className="text-4xl font-bold">{sponsors?.length}</span>
+                  <span className="text-lg">Sponsors</span>
                 </div>
                 {!hasAccess && (
                   <Spinner
@@ -63,8 +63,8 @@ export default function TrusteeUsersPage() {
                     size="md"
                   />
                 )}
-                {hasAccess && trustees.length === 0 && (
-                  <p className="text-lg">No trustees found.</p>
+                {hasAccess && sponsors.length === 0 && (
+                  <p className="text-lg">No sponsors found.</p>
                 )}
                 {hasAccess && (
                   <table className="min-w-full">
@@ -81,10 +81,11 @@ export default function TrusteeUsersPage() {
                             Email Address
                           </div>
                         </th>
+                        <th className="py-2 text-xs md:text-base">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {trustees.map((user, index) => (
+                      {sponsors.map((user, index) => (
                         <tr key={index} className="text-center">
                           <td className="py-2 px-auto text-xs md:text-base">
                             <div className="flex justify-center">
@@ -106,6 +107,26 @@ export default function TrusteeUsersPage() {
                             <div className="hidden md:flex md:flex-col">
                               {user.email}
                             </div>
+                          </td>
+                          <td>
+                            <Button
+                              className="py-2 text-xs md:text-base"
+                              onClick={async () => {
+                                await fetch(`/api/sponsor/demote`, {
+                                  method: "POST",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${authProvider.accessToken}`,
+                                  },
+                                  body: JSON.stringify({
+                                    email: user.email,
+                                  }),
+                                });
+                                setIsFetching(true);
+                              }}
+                            >
+                              Make User
+                            </Button>
                           </td>
                         </tr>
                       ))}
@@ -137,7 +158,7 @@ export default function TrusteeUsersPage() {
           )}
           {(!authProvider.isLoggedIn || authProvider.role !== "Trustee") && (
             <>
-              <h1 className={title()}>Trustees</h1>
+              <h1 className={title()}>Trustee Sponsors</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.
