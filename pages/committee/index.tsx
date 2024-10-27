@@ -36,6 +36,14 @@ export default function CommitteeMemberPage() {
                 <Button
                   showAnchorIcon
                   as={Link}
+                  href="/committee/hackathons"
+                  variant="bordered"
+                >
+                  Manage Hackathons
+                </Button>
+                <Button
+                  showAnchorIcon
+                  as={Link}
                   href="/committee/sponsors"
                   variant="bordered"
                 >

@@ -36,6 +36,14 @@ export default function TrusteePage() {
                 <Button
                   showAnchorIcon
                   as={Link}
+                  href="/trustee/hackathons"
+                  variant="bordered"
+                >
+                  Manage Hackathons
+                </Button>
+                <Button
+                  showAnchorIcon
+                  as={Link}
                   href="/trustee/sponsors"
                   variant="bordered"
                 >

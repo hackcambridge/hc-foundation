@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const client = await getClient();
 
   try {
-    if (req.method === "GET") {
+    if (req.method === "POST") {
       const authHeader = req.headers.authorization;
 
       if (!authHeader) {
@@ -34,17 +34,26 @@ export default async function handler(req, res) {
       const General = client.db("General");
       const Hackathon = General.collection("Hackathon");
 
-      const hackathons = await Hackathon.find()
-        .sort({ year: 1 })
-        .toArray();
+      const updatedHackathon = req.body;
 
-      if (hackathons.length > 0) {
-        res.status(200).json(hackathons);
+      if (!updatedHackathon || Object.keys(updatedHackathon).length === 0) {
+        return res.status(400).json({ error: "Hackathon data is missing" });
+      }
+
+      const year = req.query.year;
+      const result = await Hackathon.updateOne({
+        year: parseInt(year),
+      }, {
+        $set: updatedHackathon,
+      });
+
+      if (result.modifiedCount > 0) {
+        res.status(200).json({ message: "Hackathon updated successfully" });
       } else {
-        res.status(404).json({ error: "No hackathons found" });
+        res.status(404).json({ error: "Hackathon not found" });
       }
     } else {
-      res.setHeader("Allow", ["GET"]);
+      res.setHeader("Allow", ["POST"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
   } catch (error) {

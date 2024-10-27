@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const client = await getClient();
 
   try {
-    if (req.method === "GET") {
+    if (req.method === "DELETE") {
       const authHeader = req.headers.authorization;
 
       if (!authHeader) {
@@ -34,17 +34,21 @@ export default async function handler(req, res) {
       const General = client.db("General");
       const Hackathon = General.collection("Hackathon");
 
-      const hackathons = await Hackathon.find()
-        .sort({ year: 1 })
-        .toArray();
+      const year = req.body.year;
 
-      if (hackathons.length > 0) {
-        res.status(200).json(hackathons);
+      if (!year) {
+        return res.status(400).json({ error: "Year is missing" });
+      }
+
+      const result = await Hackathon.deleteOne({ year });
+
+      if (result.deletedCount > 0) {
+        res.status(200).json({ message: "Hackathon deleted successfully" });
       } else {
-        res.status(404).json({ error: "No hackathons found" });
+        res.status(404).json({ error: "Hackathon not found" });
       }
     } else {
-      res.setHeader("Allow", ["GET"]);
+      res.setHeader("Allow", ["DELETE"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
   } catch (error) {

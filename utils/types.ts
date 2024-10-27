@@ -32,114 +32,25 @@ export const userSchema = {
   type_index: 0,
 };
 
-export type RegionData = {
+export type Hackathon = {
   _id: ObjectId;
-  region: number;
+  year: number;
   name: string;
-  location: string;
-  text: string;
-  colour: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type EducationData = {
-  _id: ObjectId;
-  index: number;
-  school: string;
-  degree: string;
-  field: string;
-  location: string;
+  shortName: string;
+  description: string;
   startDate: string;
   endDate: string;
-  grade: string;
-  activities: string;
-  description: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type CertificationData = {
-  _id: ObjectId;
-  index: number;
-  name: string;
-  organisation: string;
-  credID: string;
-  credURL: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type ExperienceData = {
-  _id: ObjectId;
-  index: number;
-  jobTitle: string;
-  jobType: string;
-  company: string;
   location: string;
-  locationType: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type OrganisationsData = {
-  _id: ObjectId;
-  index: number;
-  name: string;
-  position: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type ProjectsData = {
-  _id: ObjectId;
-  index: number;
-  name: string;
-  brief: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  logo: string;
-  skills: string[];
-  media: string[];
-};
-
-export type SkillsData = {
-  _id: ObjectId;
-  index: number;
-  name: string;
-  description: string;
-  media: string[];
-};
-
-export type MediaData = {
-  _id: ObjectId;
-  name: string;
-  type: string;
-  url: string;
-};
-
-export type ContactData = {
-  _id: ObjectId;
-  name: string;
-  email: string;
-  subject: string;
-  content: string;
-  date: string;
+  website: string;
+  logoLight: string;
+  logoDark: string;
+  sponsors: ObjectId[];
+  trustees: ObjectId[];
+  admins: ObjectId[];
+  committee: ObjectId[];
+  participants: ObjectId[];
+  judges: ObjectId[];
+  winners: ObjectId[];
+  status: string;
+  status_index: number;
 };

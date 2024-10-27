@@ -1,36 +1,107 @@
-// import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { Accordion, AccordionItem } from "@nextui-org/accordion";
+import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
+import { Image } from "@nextui-org/image";
 
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
+import { Hackathon } from "@/utils/types";
 
 export default function HackathonsPage() {
-  // const hackathons = [
-  //   { year: 2023, image: "/images/2023.png", participants: 150, sponsors: ["Company A", "Company B"] },
-  //   { year: 2022, image: "/images/2022.png", participants: 140, sponsors: ["Company C", "Company D"] },
-  //   { year: 2021, image: "/images/2021.png", participants: 130, sponsors: ["Company E", "Company F"] },
-  //   { year: 2020, image: "/images/2020.png", participants: 120, sponsors: ["Company G", "Company H"] },
-  //   { year: 2019, image: "/images/2019.png", participants: 110, sponsors: ["Company I", "Company J"] },
-  //   { year: 2018, image: "/images/2018.png", participants: 100, sponsors: ["Company K", "Company L"] },
-  //   { year: 2017, image: "/images/2017.png", participants: 90, sponsors: ["Company M", "Company N"] },
-  //   { year: 2016, image: "/images/2016.png", participants: 80, sponsors: ["Company O", "Company P"] },
-  // ];
+  const [isFetching, setIsFetching] = useState(true);
+  const [hackathons, setHackathons] = useState<Hackathon[]>([]);
+  const [hackathonKeys, setHackathonKeys] = useState(new Set(["0"]));
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    async function getHackathonData() {
+      const response = await fetch("/api/hackathon/list", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        if (data) {
+          setHackathons(data);
+        }
+      }
+    }
+
+    if (isFetching && hackathons.length === 0) {
+      setIsFetching(false);
+      getHackathonData();
+    }
+  }, [hackathons, isFetching]);
   
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-        <div className="inline-block max-w-lg text-center justify-center">
+        <div className="inline-block max-w-full text-center justify-center">
           <h1 className={title()}>Hackathons</h1>
-          {/* <Accordion>
-            {hackathons.map((hackathon) => (
-              <AccordionItem key={hackathon.year} title={`Hackathon ${hackathon.year}`}>
-                <div className="flex flex-col items-center">
-                  <img src={hackathon.image} alt={`Hackathon ${hackathon.year}`} className="w-full h-auto mb-4" />
-                  <p>Participants: {hackathon.participants}</p>
-                  <p>Sponsors: {hackathon.sponsors.join(", ")}</p>
+          <Accordion
+            className="py-8 mx-auto"
+            selectedKeys={hackathonKeys}
+            variant="splitted"
+            onSelectionChange={(keys) => {
+              setHackathonKeys((prevKeys) => {
+                const newKeys = new Set(prevKeys);
+
+                (keys as unknown as string[]).forEach((key) => {
+                  if (newKeys.has(key)) {
+                    newKeys.delete(key);
+                  } else {
+                    newKeys.add(key);
+                  }
+                });
+
+                return newKeys;
+              });
+            }}
+          >
+            {hackathons.map((hackathon, index) => (
+              <AccordionItem
+                key={index.toString()}
+                title={
+                  <div className="flex items-center justify-between w-full gap-4">
+                    {theme === "light" ? (
+                      <Image
+                        src={hackathon.logoLight}
+                        alt={hackathon.shortName}
+                        width={100}
+                      />
+                    ) : (
+                      <Image
+                        src={hackathon.logoDark}
+                        alt={hackathon.shortName}
+                        width={100}
+                      />
+                    )}
+                    <div className="flex flex-col items-start">
+                      <p>{hackathon.name}</p>
+                      <p>{hackathon.year}</p>
+                    </div>
+                  </div>
+                }
+              >
+                <div className="flex flex-col items-center justify-center gap-4 py-8">
+                  <Button
+                    showAnchorIcon
+                    as={Link}
+                    href={`${hackathon.website}`}
+                    variant="bordered"
+                  >
+                    View Hackathon Website
+                  </Button>
                 </div>
               </AccordionItem>
             ))}
-          </Accordion> */}
+          </Accordion>
         </div>
       </section>
     </DefaultLayout>

@@ -34,14 +34,15 @@ export default async function handler(req, res) {
       const General = client.db("General");
       const Hackathon = General.collection("Hackathon");
 
-      const hackathons = await Hackathon.find()
-        .sort({ year: 1 })
-        .toArray();
+      const year = req.query.year;
 
-      if (hackathons.length > 0) {
-        res.status(200).json(hackathons);
+      const hackathon = await Hackathon
+        .findOne({ year: parseInt(year) });
+
+      if (hackathon) {
+        res.status(200).json(hackathon);
       } else {
-        res.status(404).json({ error: "No hackathons found" });
+        res.status(404).json({ error: "No hackathon found" });
       }
     } else {
       res.setHeader("Allow", ["GET"]);

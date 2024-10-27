@@ -36,6 +36,14 @@ export default function AdminPage() {
                 <Button
                   showAnchorIcon
                   as={Link}
+                  href="/admin/hackathons"
+                  variant="bordered"
+                >
+                  Manage Hackathons
+                </Button>
+                <Button
+                  showAnchorIcon
+                  as={Link}
                   href="/admin/sponsors"
                   variant="bordered"
                 >
