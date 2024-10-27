@@ -26,14 +26,13 @@ export default async function handler(req, res) {
         return res.status(403).json({ error: "Invalid or missing token" });
       }
 
-      const isUser = await validateToken({ Role: User, token });
       const isHacker = await validateToken({ Role: Hacker, token });
       const isCommittee = await validateToken({ Role: Committee, token });
       const isSponsor = await validateToken({ Role: Sponsor, token });
       const isTrustee = await validateToken({ Role: Trustee, token });
       const isAdmin = await validateToken({ Role: Admin, token });
 
-      if (!isUser && !isHacker && !isCommittee && !isSponsor && !isTrustee && !isAdmin) {
+      if (!isHacker && !isCommittee && !isSponsor && !isTrustee && !isAdmin) {
         return res.status(403).json({ error: "Invalid or expired token" });
       }
 

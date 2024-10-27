@@ -6,29 +6,21 @@ import { AuthContext } from "@/components/auth";
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 
-export default function SponsorPage() {
+export default function HackerPage() {
   const authProvider = useContext(AuthContext);
 
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="w-full text-center">
-          {authProvider.isLoggedIn && authProvider.role === "Sponsor" && (
+          {authProvider.isLoggedIn && authProvider.role === "User" && (
             <>
-              <h1 className={title()}>Sponsor</h1>
+              <h1 className={title()}>User</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <Button
                   showAnchorIcon
                   as={Link}
-                  href="/sponsor/hackers"
-                  variant="bordered"
-                >
-                  View Hackers
-                </Button>
-                <Button
-                  showAnchorIcon
-                  as={Link}
-                  href="/sponsor/committee"
+                  href="/user/committee"
                   variant="bordered"
                 >
                   View Committee
@@ -36,7 +28,7 @@ export default function SponsorPage() {
                 <Button
                   showAnchorIcon
                   as={Link}
-                  href="/sponsor/trustees"
+                  href="/user/trustees"
                   variant="bordered"
                 >
                   View Trustees
@@ -44,7 +36,7 @@ export default function SponsorPage() {
                 <Button
                   showAnchorIcon
                   as={Link}
-                  href="/sponsor/admins"
+                  href="/user/admins"
                   variant="bordered"
                 >
                   View Admins
@@ -52,9 +44,9 @@ export default function SponsorPage() {
               </div>
             </>
           )}
-          {(!authProvider.isLoggedIn || authProvider.role !== "Sponsor") && (
+          {(!authProvider.isLoggedIn || authProvider.role !== "User") && (
             <>
-              <h1 className={title()}>Sponsor</h1>
+              <h1 className={title()}>User</h1>
               <div className="flex flex-col items-center justify-center py-8 space-y-8">
                 <p className="text-lg">
                   You are not authorized to access this page.
