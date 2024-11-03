@@ -42,7 +42,7 @@ export default function HackathonsPage() {
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-        <div className="inline-block max-w-full text-center justify-center">
+        <div className="w-full md:w-3/5 text-center justify-center">
           <h1 className={title()}>Hackathons</h1>
           <Accordion
             className="py-8 mx-auto"
@@ -82,7 +82,7 @@ export default function HackathonsPage() {
                         width={100}
                       />
                     )}
-                    <div className="flex flex-col items-start">
+                    <div className="flex flex-col w-full items-start ml-8">
                       <p>{hackathon.name}</p>
                       <p>{hackathon.year}</p>
                     </div>

@@ -54,3 +54,28 @@ export type Hackathon = {
   status: string;
   status_index: number;
 };
+
+export type Sponsor = {
+  _id: ObjectId;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  avatarName: string;
+  avatarType: string;
+  avatarURL: string;
+  logo: string;
+  website: string;
+};
+
+export type Trustee = {
+  _id: ObjectId;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  avatarName: string;
+  avatarType: string;
+  avatarURL: string;
+  email: string;
+  phone: string;
+  bio: string;
+};

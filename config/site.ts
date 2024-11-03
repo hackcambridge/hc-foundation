@@ -17,8 +17,8 @@ export const siteConfig = {
       href: "/charity",
     },
     {
-      label: "Trustees",
-      href: "/trustees",
+      label: "Organisation",
+      href: "/organisation",
     },
     {
       label: "Hackathons",
